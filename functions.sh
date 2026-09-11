@@ -51,7 +51,7 @@ cd_and_extract() {
 		(cd "$f" && tar -xvf *.tar.gz 2>/dev/null || echo "No tar.gz in $f")
 	done
 }
-psevenz() {
+pi7z() {
 	local name="$(basename "$PWD")"
 	local archive="../${name}.7z"
 	echo "🗜️ Compressing '$name' into '$archive'..."

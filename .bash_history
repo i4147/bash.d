@@ -4706,7 +4706,7 @@ pydiff mk_stand.py mk_stand2.py
 python -m fissix -w --fix=all .
 rename_html_by_title index.html
 replacer williambohem mason-org
-replacer williamboman mason-org
+replacer mason-org mason-org
 rff pip-26.2.1-py3-none-any.whl
 rff traitlets-5.15.1.dist-info/
 rm .readthedocs.yml .travis.yml
