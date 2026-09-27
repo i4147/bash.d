@@ -81,69 +81,11 @@ btree() {
 ftree() {
 	tree -a -I "__pycache__|.git" -L 3 -h
 }
-pss() {
-	ff="/sdcard/data/pip.txt"
-	grep "$@" "$ff"
-}
 ljj() {
 	ls -la | awk 'NR>1 && !/^d/ {printf "%s %.2f MB\n", $9, $5/1024/1024}'
 }
-# --------- C++ Programming Shortcuts ---------
-cpp_run() {
-	if [ "$#" -eq 0 ]; then
-		echo "Usage: cpprun <file.cpp>"
-		return 1
-	fi
-	file="$1"
-	exe="${file%.cpp}"
-	g++ -std=c++17 -Wall -Wextra -O2 "$file" -o "$exe" && ./"$exe"
-}
-cppnew() {
-	if [ $# -eq 0 ]; then
-		echo "Usage: cppnew <filename.cpp>"
-		return 1
-	fi
-	file="$1"
-	cat >"$file" <<'EOF'
-#include <bits/stdc++.h>
-using namespace std;
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    // Your code here
-    return 0;
-}
-EOF
-	echo "Created $file with basic C++ template"
-	nano "$file"
-}
-git_clone2() {
-	if [ -z "$1" ]; then
-		echo "Usage: g2 <repo-url> [target-dir]"
-		return 1
-	fi
-	local url="$1"
-	local target="${2:-}"
-	# Get default branch from remote (e.g. main or master)
-	local branch
-	branch=$(git ls-remote --symref "$url" HEAD 2>/dev/null | awk '/^ref:/ {print $2}' | sed 's|refs/heads/||')
-	if [ -z "$branch" ]; then
-		echo "❌ Could not determine default branch for $url"
-		return 1
-	fi
-	# Derive repo name if no custom folder name given
-	local repo
-	repo=$(basename "$url" .git)
-	# Determine target directory
-	if [ -z "$target" ]; then
-		target="${repo}.git"
-	fi
-	echo "🔍 Default branch: $branch"
-	echo "📦 Cloning only '$branch' from $url into $target ..."
-	git clone --single-branch --branch "$branch" --bare "$url" "$target" || return 1
-	echo "✅ Done!"
-	echo "   To update later: cd $target && git fetch origin $branch"
-}
+
+
 gtop() {
 	local file
 	file=$(
@@ -175,6 +117,8 @@ EOF
 	cd "$dir" || return
 	pwd
 }
+
+
 extract_archive() {
 	if [ -f "$1" ]; then
 		case "$1" in
@@ -513,4 +457,12 @@ rfs() {
 	local dir_name=$(basename "$PWD")
 	local parent_dir=$(dirname "$PWD")
 	cd "$parent_dir" && rm -rf "$dir_name" && echo "Now in: $(pwd)"
+}
+
+
+ruf() {
+  if (( $# == 0 )); then
+    set -- .
+  fi
+  ruff format "$@"
 }
