@@ -4,8 +4,8 @@
 set -e
 
 # --- CONFIGURATION ---
-SOURCE_USER="unforgivenii147"
-TARGET_USER="iho147"
+SOURCE_USER="i4147"
+TARGET_USER="i4147"
 
 echo "===================================================="
 echo " Starting GitHub Repository Transfer Script"
