@@ -196,7 +196,7 @@ tzstd() {
 		return 1
 	}
 	rm -rf "$name"
-	zstd --rm -3 "${name}.tar"
+	zstd --rm -11 "${name}.tar"
 	echo "✅ Done: created '${name}.tar.zst' and removed '$name/'"
 }
 py_ruff() {
